@@ -13,21 +13,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User implements Serializable {
-
+public class FavoriteList implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @DocumentId
     private String documentId;
 
-    private String name;
+    private String userId;
 
-    private String username;
-
-    private String password;
-
-    private String email;
-
-    private String role;
+    private String isbn13;
 }

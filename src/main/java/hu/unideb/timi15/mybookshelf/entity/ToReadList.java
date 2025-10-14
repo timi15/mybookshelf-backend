@@ -1,6 +1,5 @@
 package hu.unideb.timi15.mybookshelf.entity;
 
-import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.annotation.DocumentId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,24 +13,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BookReview implements Serializable {
+public class ToReadList implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @DocumentId
     private String documentId;
 
-    private String isbn13;
-
     private String userId;
 
-    private Timestamp startDate;
-
-    private Timestamp finishDate;
-
-    private String plot;
-
-    private String reflection;
-
-    private Integer rating;
+    private String isbn13;
 }
