@@ -1,5 +1,6 @@
 package hu.unideb.timi15.mybookshelf.entity;
 
+import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.annotation.DocumentId;
 import com.google.cloud.spring.data.firestore.Document;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.Instant;
 
 @Data
 @AllArgsConstructor
@@ -27,9 +27,9 @@ public class BookReviewEntity implements Serializable {
 
     private String userId;
 
-    private Instant startDate;
+    private Timestamp startDate;
 
-    private Instant finishDate;
+    private Timestamp finishDate;
 
     private String plot;
 
