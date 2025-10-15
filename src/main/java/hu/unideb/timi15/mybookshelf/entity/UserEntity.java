@@ -1,6 +1,7 @@
 package hu.unideb.timi15.mybookshelf.entity;
 
 import com.google.cloud.firestore.annotation.DocumentId;
+import com.google.cloud.spring.data.firestore.Document;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Document(collectionName = "users")
 public class UserEntity implements Serializable {
 
     @Serial
