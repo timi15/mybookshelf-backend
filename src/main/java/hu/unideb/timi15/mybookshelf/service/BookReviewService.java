@@ -1,9 +1,10 @@
 package hu.unideb.timi15.mybookshelf.service;
 
-import hu.unideb.timi15.mybookshelf.entity.BookReviewEntity;
+import hu.unideb.timi15.mybookshelf.service.dto.bookreview.request.CreateBookReviewRequestDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.bookreview.response.BookReviewResponseDTO;
 
 public interface BookReviewService {
 
-    BookReviewEntity save(BookReviewEntity bookReviewEntity);
+    BookReviewResponseDTO save(CreateBookReviewRequestDTO createBookReviewRequestDTO);
 
 }
