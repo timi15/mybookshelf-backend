@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {DateConverter.class}, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface BookReviewMapper {
 
@@ -20,5 +22,8 @@ public interface BookReviewMapper {
     @Mapping(target = "startDate", source = "createBookReviewRequestDTO.startDate", qualifiedByName = "localDateToTimestamp")
     @Mapping(target = "finishDate", source = "createBookReviewRequestDTO.finishDate", qualifiedByName = "localDateToTimestamp")
     BookReviewEntity toEntity(CreateBookReviewRequestDTO createBookReviewRequestDTO);
+
+
+    List<BookReviewResponseDTO> map(List<BookReviewEntity> bookReviewEntities);
 
 }

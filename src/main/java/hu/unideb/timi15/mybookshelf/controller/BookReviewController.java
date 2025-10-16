@@ -7,12 +7,24 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("v1/mybookshelf/book-review")
 @RequiredArgsConstructor
 public class BookReviewController {
 
-    final BookReviewService bookReviewService;
+    private final BookReviewService bookReviewService;
+
+    @GetMapping("/all")
+    public List<BookReviewResponseDTO> findAll(){
+        return bookReviewService.findAll();
+    }
+
+    @GetMapping("/{isbn}")
+    public BookReviewResponseDTO findByISBN(@PathVariable String isbn){
+        return bookReviewService.findByISBN(isbn);
+    }
 
     @PostMapping("/save")
     public BookReviewResponseDTO save(@Valid @RequestBody CreateBookReviewRequestDTO createBookReviewRequestDTO) {
