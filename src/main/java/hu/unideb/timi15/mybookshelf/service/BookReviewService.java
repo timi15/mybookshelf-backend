@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface BookReviewService {
 
-    BookReviewResponseDTO save(CreateBookReviewRequestDTO createBookReviewRequestDTO);
+    BookReviewResponseDTO save(String idToken, CreateBookReviewRequestDTO createBookReviewRequestDTO);
 
-    List<BookReviewResponseDTO> findAll();
+    List<BookReviewResponseDTO> findAll(String idToken);
 
-    BookReviewResponseDTO findByISBN(String isbn13);
+    BookReviewResponseDTO findByISBN(String idToken, String isbn13);
 }

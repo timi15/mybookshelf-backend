@@ -17,17 +17,17 @@ public class BookReviewController {
     private final BookReviewService bookReviewService;
 
     @GetMapping("/all")
-    public List<BookReviewResponseDTO> findAll(){
-        return bookReviewService.findAll();
+    public List<BookReviewResponseDTO> findAll(@RequestHeader("Authorization") String idToken) {
+        return bookReviewService.findAll(idToken);
     }
 
     @GetMapping("/{isbn}")
-    public BookReviewResponseDTO findByISBN(@PathVariable String isbn){
-        return bookReviewService.findByISBN(isbn);
+    public BookReviewResponseDTO findByISBN(@RequestHeader("Authorization") String idToken, @PathVariable String isbn) {
+        return bookReviewService.findByISBN(idToken, isbn);
     }
 
     @PostMapping("/save")
-    public BookReviewResponseDTO save(@Valid @RequestBody CreateBookReviewRequestDTO createBookReviewRequestDTO) {
-        return bookReviewService.save(createBookReviewRequestDTO);
+    public BookReviewResponseDTO save(@RequestHeader("Authorization") String idToken, @Valid @RequestBody CreateBookReviewRequestDTO createBookReviewRequestDTO) {
+        return bookReviewService.save(idToken, createBookReviewRequestDTO);
     }
 }

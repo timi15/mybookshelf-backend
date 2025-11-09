@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Document(collectionName = "to_reads")
-public class ToReadList implements Serializable {
+public class ToReadListEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 

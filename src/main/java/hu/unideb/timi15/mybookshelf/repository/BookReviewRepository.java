@@ -9,8 +9,10 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface BookReviewRepository extends FirestoreReactiveRepository<BookReviewEntity> {
 
-    Mono<Boolean> existsByIsbn13(String isbn13);
+    Mono<Boolean> existsByUserIdAndIsbn13(String userId, String isbn13);
 
-    Mono<BookReviewEntity> findByIsbn13(String isbn13);
+    Mono<BookReviewEntity> findByUserIdAndIsbn13(String userId, String isbn13);
+
+    Flux<BookReviewEntity> findAllByUserId(String userId);
 
 }

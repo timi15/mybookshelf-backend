@@ -35,5 +35,5 @@ public class CreateBookReviewRequestDTO {
     @Max(5)
     private Integer rating;
 
-    //TODO: user
+    private String userid;
 }

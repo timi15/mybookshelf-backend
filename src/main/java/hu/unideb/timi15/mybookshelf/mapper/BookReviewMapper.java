@@ -12,15 +12,14 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {DateConverter.class}, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface BookReviewMapper {
 
-    @Mapping(target = "startDate", source = "bookReviewEntity.startDate", qualifiedByName = "timestampToLocalDate")
-    @Mapping(target = "finishDate", source = "bookReviewEntity.finishDate", qualifiedByName = "timestampToLocalDate")
+    @Mapping(target = "startDate", source = "startDate", qualifiedByName = "timestampToLocalDate")
+    @Mapping(target = "finishDate", source = "finishDate", qualifiedByName = "timestampToLocalDate")
     BookReviewResponseDTO toResponseDTO(BookReviewEntity bookReviewEntity);
 
 
     @Mapping(target = "documentId", ignore = true)
-    @Mapping(target = "userId", ignore = true)
-    @Mapping(target = "startDate", source = "createBookReviewRequestDTO.startDate", qualifiedByName = "localDateToTimestamp")
-    @Mapping(target = "finishDate", source = "createBookReviewRequestDTO.finishDate", qualifiedByName = "localDateToTimestamp")
+    @Mapping(target = "startDate", source = "startDate", qualifiedByName = "localDateToTimestamp")
+    @Mapping(target = "finishDate", source = "finishDate", qualifiedByName = "localDateToTimestamp")
     BookReviewEntity toEntity(CreateBookReviewRequestDTO createBookReviewRequestDTO);
 
 
