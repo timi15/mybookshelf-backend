@@ -15,4 +15,5 @@ public interface BookReviewRepository extends FirestoreReactiveRepository<BookRe
 
     Flux<BookReviewEntity> findAllByUserId(String userId);
 
+    Mono<Void> deleteByUserIdAndIsbn13(String userId, String isbn13);
 }
