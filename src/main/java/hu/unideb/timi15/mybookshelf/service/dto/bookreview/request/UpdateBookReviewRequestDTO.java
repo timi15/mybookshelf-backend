@@ -12,10 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Builder
-public class CreateBookReviewRequestDTO {
-
-    @NotBlank
-    private String isbn13;
+public class UpdateBookReviewRequestDTO {
 
     @PastOrPresent
     private LocalDate startDate;
@@ -32,4 +29,5 @@ public class CreateBookReviewRequestDTO {
     @Min(1)
     @Max(5)
     private Integer rating;
+
 }

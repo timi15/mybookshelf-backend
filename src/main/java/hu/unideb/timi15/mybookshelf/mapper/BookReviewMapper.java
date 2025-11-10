@@ -2,10 +2,9 @@ package hu.unideb.timi15.mybookshelf.mapper;
 
 import hu.unideb.timi15.mybookshelf.entity.BookReviewEntity;
 import hu.unideb.timi15.mybookshelf.service.dto.bookreview.request.CreateBookReviewRequestDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.bookreview.request.UpdateBookReviewRequestDTO;
 import hu.unideb.timi15.mybookshelf.service.dto.bookreview.response.BookReviewResponseDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -21,6 +20,12 @@ public interface BookReviewMapper {
     @Mapping(target = "startDate", source = "startDate", qualifiedByName = "localDateToTimestamp")
     @Mapping(target = "finishDate", source = "finishDate", qualifiedByName = "localDateToTimestamp")
     BookReviewEntity toEntity(CreateBookReviewRequestDTO createBookReviewRequestDTO);
+
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "startDate", source = "startDate", qualifiedByName = "localDateToTimestamp")
+    @Mapping(target = "finishDate", source = "finishDate", qualifiedByName = "localDateToTimestamp")
+    void updateBookReviewFromDto(UpdateBookReviewRequestDTO dto, @MappingTarget BookReviewEntity entity);
 
 
     List<BookReviewResponseDTO> map(List<BookReviewEntity> bookReviewEntities);
