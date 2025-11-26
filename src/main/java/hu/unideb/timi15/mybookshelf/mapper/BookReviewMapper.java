@@ -22,7 +22,6 @@ public interface BookReviewMapper {
     BookReviewEntity toEntity(CreateBookReviewRequestDTO createBookReviewRequestDTO);
 
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "startDate", source = "startDate", qualifiedByName = "localDateToTimestamp")
     @Mapping(target = "finishDate", source = "finishDate", qualifiedByName = "localDateToTimestamp")
     void updateBookReviewFromDto(UpdateBookReviewRequestDTO dto, @MappingTarget BookReviewEntity entity);

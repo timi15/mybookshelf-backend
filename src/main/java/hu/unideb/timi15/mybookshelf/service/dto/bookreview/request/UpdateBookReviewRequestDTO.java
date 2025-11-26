@@ -28,6 +28,6 @@ public class UpdateBookReviewRequestDTO {
 
     @Min(1)
     @Max(5)
-    private Integer rating;
+    private Integer rate;
 
 }

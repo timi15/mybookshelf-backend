@@ -27,6 +27,12 @@ public class BookReviewEntity implements Serializable {
 
     private String userId;
 
+    private String image;
+
+    private String author;
+
+    private String title;
+
     private Timestamp startDate;
 
     private Timestamp finishDate;
@@ -35,5 +41,5 @@ public class BookReviewEntity implements Serializable {
 
     private String reflection;
 
-    private Integer rating;
+    private Integer rate;
 }

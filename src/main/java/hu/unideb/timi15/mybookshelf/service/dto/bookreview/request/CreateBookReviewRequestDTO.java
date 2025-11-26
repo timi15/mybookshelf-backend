@@ -17,6 +17,15 @@ public class CreateBookReviewRequestDTO {
     @NotBlank
     private String isbn13;
 
+    @NotBlank
+    private String image;
+
+    @NotBlank
+    private String author;
+
+    @NotBlank
+    private String title;
+
     @PastOrPresent
     private LocalDate startDate;
 
@@ -31,5 +40,5 @@ public class CreateBookReviewRequestDTO {
 
     @Min(1)
     @Max(5)
-    private Integer rating;
+    private Integer rate;
 }

@@ -19,6 +19,12 @@ public class BookReviewResponseDTO {
 
     private String userId;
 
+    private String image;
+
+    private String author;
+
+    private String title;
+
     private LocalDate startDate;
 
     private LocalDate finishDate;
@@ -27,5 +33,5 @@ public class BookReviewResponseDTO {
 
     private String reflection;
 
-    private Integer rating;
+    private Integer rate;
 }
