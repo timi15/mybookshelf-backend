@@ -92,7 +92,7 @@ public class BookReviewServiceImpl implements BookReviewService {
                     "Book review not found with ISBN: " + isbn13);
         }
 
-        bookReviewRepository.deleteByUserIdAndIsbn13(userId, isbn13).block();
+        bookReviewRepository.delete(review).block();
     }
 
     public void validateIsbnUnique(String userId, String isbn13) {
