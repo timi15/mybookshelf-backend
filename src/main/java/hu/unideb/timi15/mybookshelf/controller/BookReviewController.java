@@ -1,9 +1,9 @@
 package hu.unideb.timi15.mybookshelf.controller;
 
 import hu.unideb.timi15.mybookshelf.service.BookReviewService;
-import hu.unideb.timi15.mybookshelf.service.dto.bookreview.request.CreateBookReviewRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.bookreview.request.UpdateBookReviewRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.bookreview.response.BookReviewResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.review.request.CreateBookReviewRequestDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.review.request.UpdateBookReviewRequestDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.review.response.BookReviewResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,7 +41,7 @@ public class BookReviewController {
             @PathVariable String isbn,
             @Valid @RequestBody UpdateBookReviewRequestDTO updateBookReviewRequestDTO) {
 
-        BookReviewResponseDTO updatedReview = bookReviewService.save(idToken, isbn, updateBookReviewRequestDTO);
+        BookReviewResponseDTO updatedReview = bookReviewService.update(idToken, isbn, updateBookReviewRequestDTO);
 
         return ResponseEntity.ok(updatedReview);
     }

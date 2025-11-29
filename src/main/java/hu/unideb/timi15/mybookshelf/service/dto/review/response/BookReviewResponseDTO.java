@@ -1,5 +1,6 @@
-package hu.unideb.timi15.mybookshelf.service.dto.bookreview.response;
+package hu.unideb.timi15.mybookshelf.service.dto.review.response;
 
+import hu.unideb.timi15.mybookshelf.service.dto.book.response.BookResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,24 +15,10 @@ import java.time.LocalDate;
 public class BookReviewResponseDTO {
 
     private String documentId;
-
     private String isbn13;
-
-    private String userId;
-
-    private String image;
-
-    private String author;
-
-    private String title;
-
     private LocalDate startDate;
-
     private LocalDate finishDate;
-
-    private String plot;
-
     private String reflection;
-
     private Integer rate;
+    private BookResponseDTO book;
 }

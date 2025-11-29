@@ -1,4 +1,4 @@
-package hu.unideb.timi15.mybookshelf.service.dto.bookreview.request;
+package hu.unideb.timi15.mybookshelf.service.dto.review.request;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
