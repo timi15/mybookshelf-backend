@@ -126,7 +126,7 @@ public class BookReviewServiceImpl implements BookReviewService {
         bookReviewRepository.delete(review).block();
     }
 
-    public void validateIsbnUnique(String userId, String isbn13) {
+    private void validateIsbnUnique(String userId, String isbn13) {
         if (bookReviewRepository.existsByUserIdAndIsbn13(userId, isbn13)
                 .hasElement().block()) {
             throw new AlreadyExistsException("Book review already exists with ISBN: " + isbn13);

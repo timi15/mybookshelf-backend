@@ -1,7 +1,7 @@
 package hu.unideb.timi15.mybookshelf.service.impl;
 
 import hu.unideb.timi15.mybookshelf.entity.BookEntity;
-import hu.unideb.timi15.mybookshelf.entity.BookReviewEntity;
+import hu.unideb.timi15.mybookshelf.exception.NoSessionException;
 import hu.unideb.timi15.mybookshelf.mapper.BookMapper;
 import hu.unideb.timi15.mybookshelf.repository.BookRepository;
 import hu.unideb.timi15.mybookshelf.service.BookService;
@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +48,13 @@ public class BookServiceImpl implements BookService {
         }
 
         return bookMapper.toResponseDTO(bookEntity);
+    }
+
+    @Override
+    public List<BookResponseDTO> findAll(String idToken) {
+        if (null == idToken)
+            throw new NoSessionException();
+        List<BookEntity> bookEntities = bookRepository.findAll().collectList().block();
+        return bookMapper.map(bookEntities);
     }
 }
