@@ -1,6 +1,7 @@
 package hu.unideb.timi15.mybookshelf.entity;
 
 import com.google.cloud.firestore.annotation.DocumentId;
+import com.google.cloud.spring.data.firestore.Document;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,14 +14,19 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ToRead implements Serializable {
+@Document(collectionName = "books")
+public class BookEntity implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
     @DocumentId
     private String documentId;
 
-    private String userId;
-
     private String isbn13;
+    private String userId;
+    private String image;
+    private String author;
+    private String title;
+    private String plot;
 }

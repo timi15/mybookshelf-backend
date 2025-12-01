@@ -1,6 +1,7 @@
 package hu.unideb.timi15.mybookshelf.entity;
 
 import com.google.cloud.firestore.annotation.DocumentId;
+import com.google.cloud.spring.data.firestore.Document;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Favorites implements Serializable {
+@Document(collectionName = "favourites")
+public class FavouriteListEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
