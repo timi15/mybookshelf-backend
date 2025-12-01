@@ -1,7 +1,8 @@
 package hu.unideb.timi15.mybookshelf.service.impl;
 
 import hu.unideb.timi15.mybookshelf.entity.BookReviewEntity;
-import hu.unideb.timi15.mybookshelf.exception.AlreadyExistsException;
+import hu.unideb.timi15.mybookshelf.exception.AlreadyExistException;
+import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.BookMapper;
 import hu.unideb.timi15.mybookshelf.mapper.BookReviewMapper;
 import hu.unideb.timi15.mybookshelf.repository.BookReviewRepository;
@@ -13,9 +14,7 @@ import hu.unideb.timi15.mybookshelf.service.dto.review.request.UpdateBookReviewR
 import hu.unideb.timi15.mybookshelf.service.dto.review.response.BookReviewResponseDTO;
 import hu.unideb.timi15.mybookshelf.utils.FirebaseAuthUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -59,8 +58,7 @@ public class BookReviewServiceImpl implements BookReviewService {
                 .block();
 
         if (existing == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Book review not found with ISBN: " + isbn13);
+            throw new NotFoundException("Book review not found with ISBN: " + isbn13);
         }
 
         bookReviewMapper.updateBookReviewFromDto(dto, existing);
@@ -100,8 +98,7 @@ public class BookReviewServiceImpl implements BookReviewService {
                 .block();
 
         if (review == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Book review not found with ISBN: " + isbn13);
+            throw new NotFoundException("Book review not found with ISBN: " + isbn13);
         }
 
         BookReviewResponseDTO dto = bookReviewMapper.toResponseDTO(review);
@@ -119,8 +116,7 @@ public class BookReviewServiceImpl implements BookReviewService {
                 .block();
 
         if (review == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Book review not found with ISBN: " + isbn13);
+            throw new NotFoundException("Book review not found with ISBN: " + isbn13);
         }
 
         bookReviewRepository.delete(review).block();
@@ -129,7 +125,7 @@ public class BookReviewServiceImpl implements BookReviewService {
     private void validateIsbnUnique(String userId, String isbn13) {
         if (bookReviewRepository.existsByUserIdAndIsbn13(userId, isbn13)
                 .hasElement().block()) {
-            throw new AlreadyExistsException("Book review already exists with ISBN: " + isbn13);
+            throw new AlreadyExistException("Book review already exists with ISBN: " + isbn13);
         }
     }
 }
