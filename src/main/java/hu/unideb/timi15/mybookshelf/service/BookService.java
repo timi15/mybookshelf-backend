@@ -11,5 +11,5 @@ public interface BookService {
 
     BookResponseDTO findByIsbn13(String isbn13);
 
-    List<BookResponseDTO> findAll(String idToken);
+    List<BookResponseDTO> findAll(String token);
 }
