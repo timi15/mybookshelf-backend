@@ -2,6 +2,7 @@ package hu.unideb.timi15.mybookshelf.service.impl;
 
 import hu.unideb.timi15.mybookshelf.entity.BookEntity;
 import hu.unideb.timi15.mybookshelf.entity.LovedListEntity;
+import hu.unideb.timi15.mybookshelf.exception.AlreadyInListException;
 import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.ListMapper;
 import hu.unideb.timi15.mybookshelf.repository.BookRepository;
@@ -40,6 +41,10 @@ public class LovedListServiceImpl implements ListService {
                     .build();
         }
         bookService.addOrGetBook(book, userId);
+
+        if(null != lovedListRepository.findByUserIdAndIsbn13(userId, dto.getIsbn13()).block()){
+            throw new AlreadyInListException("Book is already in loved list");
+        }
 
         LovedListEntity entity = listMapper.toLovedListEntity(dto);
         entity.setUserId(userId);

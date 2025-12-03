@@ -2,10 +2,12 @@ package hu.unideb.timi15.mybookshelf.service.impl;
 
 import hu.unideb.timi15.mybookshelf.entity.BookEntity;
 import hu.unideb.timi15.mybookshelf.entity.ToReadListEntity;
+import hu.unideb.timi15.mybookshelf.exception.AlreadyInListException;
 import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.ListMapper;
 import hu.unideb.timi15.mybookshelf.repository.BookRepository;
 import hu.unideb.timi15.mybookshelf.repository.ToReadListRepository;
+import hu.unideb.timi15.mybookshelf.service.BookService;
 import hu.unideb.timi15.mybookshelf.service.ListService;
 import hu.unideb.timi15.mybookshelf.service.dto.book.request.CreateBookRequestDTO;
 import hu.unideb.timi15.mybookshelf.service.dto.list.response.ListItemResponseDTO;
@@ -21,6 +23,7 @@ public class ToReadListServiceImpl implements ListService {
 
     private final ToReadListRepository toReadListRepository;
     private final BookRepository bookRepository;
+    private final BookService bookService;
     private final ListMapper listMapper;
 
     @Override
@@ -28,6 +31,20 @@ public class ToReadListServiceImpl implements ListService {
         String userId = FirebaseAuthUtil.getUserId(token);
 
         BookEntity book = bookRepository.findByIsbn13(dto.getIsbn13()).block();
+        if (book == null) {
+            book = BookEntity.builder()
+                    .isbn13(dto.getIsbn13())
+                    .title(dto.getTitle())
+                    .author(dto.getAuthor())
+                    .image(dto.getImage())
+                    .plot(dto.getPlot())
+                    .build();
+        }
+        bookService.addOrGetBook(book, userId);
+
+        if (null != toReadListRepository.findByUserIdAndIsbn13(userId, dto.getIsbn13()).block()) {
+            throw new AlreadyInListException("Book is already in to read list");
+        }
 
         ToReadListEntity entity = listMapper.toToReadListEntity(dto);
         entity.setUserId(userId);
