@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +29,7 @@ public class BookReviewEntity implements Serializable {
     private String userId;
     private Timestamp startDate;
     private Timestamp finishDate;
+    private List<String> genres;
     private String reflection;
     private Integer rate;
 }

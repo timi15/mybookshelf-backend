@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,6 +26,9 @@ public class CreateBookReviewRequestDTO {
 
     @PastOrPresent
     private LocalDate finishDate;
+
+    @NotEmpty
+    private List<String> genres;
 
     @Size(max = 500)
     private String reflection;
