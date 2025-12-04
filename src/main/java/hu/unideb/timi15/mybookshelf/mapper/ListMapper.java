@@ -1,15 +1,20 @@
 package hu.unideb.timi15.mybookshelf.mapper;
 
-import hu.unideb.timi15.mybookshelf.entity.BookEntity;
-import hu.unideb.timi15.mybookshelf.entity.LovedListEntity;
-import hu.unideb.timi15.mybookshelf.entity.ToReadListEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.BookEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.LovedListEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.ToReadListEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.common.BaseListEntity;
 import hu.unideb.timi15.mybookshelf.service.dto.book.request.CreateBookRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.list.response.ListItemResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.list.ListItemResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring", uses = {BookMapper.class}, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(
+        componentModel = "spring",
+        uses = {BookMapper.class},
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+)
 public interface ListMapper {
 
     LovedListEntity toLovedListEntity(CreateBookRequestDTO dto);
@@ -17,8 +22,5 @@ public interface ListMapper {
     ToReadListEntity toToReadListEntity(CreateBookRequestDTO dto);
 
     @Mapping(target = "book", source = "book")
-    ListItemResponseDTO toDto(LovedListEntity entity, BookEntity book);
-
-    @Mapping(target = "book", source = "book")
-    ListItemResponseDTO toDto(ToReadListEntity entity, BookEntity book);
+    ListItemResponseDTO toDto(BaseListEntity entity, BookEntity book);
 }

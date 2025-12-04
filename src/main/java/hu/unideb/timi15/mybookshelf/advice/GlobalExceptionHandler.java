@@ -1,4 +1,4 @@
-package hu.unideb.timi15.mybookshelf.config;
+package hu.unideb.timi15.mybookshelf.advice;
 
 import hu.unideb.timi15.mybookshelf.exception.AlreadyExistException;
 import hu.unideb.timi15.mybookshelf.exception.AlreadyInListException;

@@ -1,7 +1,7 @@
-package hu.unideb.timi15.mybookshelf.repository;
+package hu.unideb.timi15.mybookshelf.data.repository;
 
 import com.google.cloud.spring.data.firestore.FirestoreReactiveRepository;
-import hu.unideb.timi15.mybookshelf.entity.BookReviewEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.BookReviewEntity;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

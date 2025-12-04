@@ -1,18 +1,17 @@
-package hu.unideb.timi15.mybookshelf.entity;
+package hu.unideb.timi15.mybookshelf.data.entity.common;
 
-import com.google.cloud.firestore.annotation.DocumentId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
 @SuperBuilder
 @NoArgsConstructor
-public abstract class BaseListEntity {
-
-    @DocumentId
-    private String documentId;
+@EqualsAndHashCode(callSuper = true)
+public abstract class BaseListEntity extends BaseEntity {
 
     private String userId;
     private String isbn13;
+
 }

@@ -1,7 +1,7 @@
 package hu.unideb.timi15.mybookshelf.service;
 
 import hu.unideb.timi15.mybookshelf.service.dto.book.request.CreateBookRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.list.response.ListItemResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.list.ListItemResponseDTO;
 
 import java.util.List;
 

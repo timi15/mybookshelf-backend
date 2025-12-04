@@ -1,16 +1,16 @@
 package hu.unideb.timi15.mybookshelf.service.impl;
 
-import hu.unideb.timi15.mybookshelf.entity.BookEntity;
-import hu.unideb.timi15.mybookshelf.entity.ToReadListEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.BookEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.ToReadListEntity;
 import hu.unideb.timi15.mybookshelf.exception.AlreadyInListException;
 import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.ListMapper;
-import hu.unideb.timi15.mybookshelf.repository.BookRepository;
-import hu.unideb.timi15.mybookshelf.repository.ToReadListRepository;
+import hu.unideb.timi15.mybookshelf.data.repository.BookRepository;
+import hu.unideb.timi15.mybookshelf.data.repository.ToReadListRepository;
 import hu.unideb.timi15.mybookshelf.service.BookService;
 import hu.unideb.timi15.mybookshelf.service.ListService;
 import hu.unideb.timi15.mybookshelf.service.dto.book.request.CreateBookRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.list.response.ListItemResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.list.ListItemResponseDTO;
 import hu.unideb.timi15.mybookshelf.utils.FirebaseAuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

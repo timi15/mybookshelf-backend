@@ -1,10 +1,10 @@
 package hu.unideb.timi15.mybookshelf.service.impl;
 
-import hu.unideb.timi15.mybookshelf.entity.BookEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.BookEntity;
 import hu.unideb.timi15.mybookshelf.exception.NoSessionException;
 import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.BookMapper;
-import hu.unideb.timi15.mybookshelf.repository.BookRepository;
+import hu.unideb.timi15.mybookshelf.data.repository.BookRepository;
 import hu.unideb.timi15.mybookshelf.service.BookService;
 import hu.unideb.timi15.mybookshelf.service.dto.book.response.BookResponseDTO;
 import lombok.RequiredArgsConstructor;

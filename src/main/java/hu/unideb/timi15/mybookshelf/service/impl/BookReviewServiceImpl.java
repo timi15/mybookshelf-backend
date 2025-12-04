@@ -1,11 +1,11 @@
 package hu.unideb.timi15.mybookshelf.service.impl;
 
-import hu.unideb.timi15.mybookshelf.entity.BookReviewEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.BookReviewEntity;
 import hu.unideb.timi15.mybookshelf.exception.AlreadyExistException;
 import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.BookMapper;
 import hu.unideb.timi15.mybookshelf.mapper.BookReviewMapper;
-import hu.unideb.timi15.mybookshelf.repository.BookReviewRepository;
+import hu.unideb.timi15.mybookshelf.data.repository.BookReviewRepository;
 import hu.unideb.timi15.mybookshelf.service.BookReviewService;
 import hu.unideb.timi15.mybookshelf.service.BookService;
 import hu.unideb.timi15.mybookshelf.service.dto.book.response.BookResponseDTO;
@@ -61,7 +61,7 @@ public class BookReviewServiceImpl implements BookReviewService {
             throw new NotFoundException("Book review not found with ISBN: " + isbn13);
         }
 
-        bookReviewMapper.updateBookReviewFromDto(dto, existing);
+        bookReviewMapper.updateEntityFromDto(dto, existing);
 
         BookReviewEntity updated = bookReviewRepository.save(existing).block();
 

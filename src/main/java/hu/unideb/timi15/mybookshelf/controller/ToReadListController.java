@@ -2,7 +2,7 @@ package hu.unideb.timi15.mybookshelf.controller;
 
 import hu.unideb.timi15.mybookshelf.service.ListService;
 import hu.unideb.timi15.mybookshelf.service.dto.book.request.CreateBookRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.list.response.ListItemResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.list.ListItemResponseDTO;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 

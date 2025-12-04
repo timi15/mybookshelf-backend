@@ -1,6 +1,6 @@
 package hu.unideb.timi15.mybookshelf.service;
 
-import hu.unideb.timi15.mybookshelf.entity.BookEntity;
+import hu.unideb.timi15.mybookshelf.data.entity.BookEntity;
 import hu.unideb.timi15.mybookshelf.service.dto.book.response.BookResponseDTO;
 
 import java.util.List;
