@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +19,7 @@ public class BookReviewResponseDTO {
     private String isbn13;
     private LocalDate startDate;
     private LocalDate finishDate;
+    private List<String> genres;
     private String reflection;
     private Integer rate;
     private BookResponseDTO book;

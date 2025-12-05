@@ -19,7 +19,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<BookResponseDTO>> findAll(@RequestHeader("Authorization") String idToken) {
-        return ResponseEntity.ok(bookService.findAll(idToken));
+    public ResponseEntity<List<BookResponseDTO>> findAll(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(bookService.findAll(token));
     }
 }

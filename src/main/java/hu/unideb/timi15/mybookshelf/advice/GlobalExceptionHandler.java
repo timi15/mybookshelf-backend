@@ -1,6 +1,7 @@
-package hu.unideb.timi15.mybookshelf.config;
+package hu.unideb.timi15.mybookshelf.advice;
 
 import hu.unideb.timi15.mybookshelf.exception.AlreadyExistException;
+import hu.unideb.timi15.mybookshelf.exception.AlreadyInListException;
 import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -54,6 +55,17 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(409).body(Map.of(
                 "title", "date already exist",
+                "status", "409",
+                "message", ex.getMessage(),
+                "timestamp", System.currentTimeMillis()
+        ));
+    }
+
+    @ExceptionHandler(AlreadyInListException.class)
+    public ResponseEntity<Map<String, Object>> handleAlreadyInList(AlreadyInListException ex) {
+
+        return ResponseEntity.status(409).body(Map.of(
+                "title", "date already in list",
                 "status", "409",
                 "message", ex.getMessage(),
                 "timestamp", System.currentTimeMillis()

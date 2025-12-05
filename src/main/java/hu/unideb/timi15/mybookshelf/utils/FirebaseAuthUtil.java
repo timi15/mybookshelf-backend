@@ -13,7 +13,7 @@ public class FirebaseAuthUtil {
             throw new NoSessionException();
         }
 
-        String idToken = authorizationHeader.startsWith("Bearer ")
+        String idToken = authorizationHeader.startsWith("Bearer")
                 ? authorizationHeader.substring(7)
                 : authorizationHeader;
 

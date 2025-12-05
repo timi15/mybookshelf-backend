@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface BookReviewService {
 
-    BookReviewResponseDTO save(String idToken, CreateBookReviewRequestDTO createBookReviewRequestDTO);
+    BookReviewResponseDTO save(String token, CreateBookReviewRequestDTO createBookReviewRequestDTO);
 
-    BookReviewResponseDTO update(String idToken, String isbn13, UpdateBookReviewRequestDTO updateBookReviewRequestDTO);
+    BookReviewResponseDTO update(String token, String isbn13, UpdateBookReviewRequestDTO updateBookReviewRequestDTO);
 
-    List<BookReviewResponseDTO> findAll(String idToken);
+    List<BookReviewResponseDTO> findAll(String token);
 
-    BookReviewResponseDTO findByISBN(String idToken, String isbn13);
+    BookReviewResponseDTO findByISBN(String token, String isbn13);
 
-    void deleteByISBN(String idToken, String isbn13);
+    void deleteByISBN(String token, String isbn13);
 }
