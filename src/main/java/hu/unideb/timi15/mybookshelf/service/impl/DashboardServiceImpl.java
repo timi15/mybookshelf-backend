@@ -1,5 +1,6 @@
 package hu.unideb.timi15.mybookshelf.service.impl;
 
+import hu.unideb.timi15.mybookshelf.data.entity.BookEntity;
 import hu.unideb.timi15.mybookshelf.data.entity.BookReviewEntity;
 import hu.unideb.timi15.mybookshelf.data.repository.BookRepository;
 import hu.unideb.timi15.mybookshelf.data.repository.BookReviewRepository;
@@ -65,33 +66,43 @@ public class DashboardServiceImpl implements DashboardService {
 
         if (lastReview == null) return null;
 
-        return bookRepository.findByIsbn13(lastReview.getIsbn13()).block().getImage();
+        return Optional.ofNullable(bookRepository.findByIsbn13(lastReview.getIsbn13()).block())
+                .map(BookEntity::getImage)
+                .orElse(null);
     }
 
     private List<String> getTop5Book(String userId) {
         List<String> result = new ArrayList<>();
 
-        List<BookReviewEntity> reviews = reviewRepository.findByUserIdOrderByRateDesc(userId, Limit.of(5)).collectList().block();
+        List<BookReviewEntity> reviews = reviewRepository
+                .findByUserIdOrderByRateDesc(userId, Limit.of(5))
+                .collectList()
+                .block();
+
+        if (reviews == null) return result;
+
         for (BookReviewEntity review : reviews) {
-            result.add(bookRepository.findByIsbn13(review.getIsbn13()).block().getImage());
+            Optional.ofNullable(bookRepository.findByIsbn13(review.getIsbn13()).block())
+                    .map(BookEntity::getImage)
+                    .ifPresent(result::add);
         }
 
         return result;
     }
 
     private Map<String, Long> getGenreStat(String token) {
-        List<BookReviewResponseDTO> reviews = bookReviewService.findAll(token);
+
+        List<BookReviewResponseDTO> reviews = Optional.ofNullable(bookReviewService.findAll(token))
+                .orElse(Collections.emptyList());
 
         Map<String, Long> result = new HashMap<>();
 
-        if (reviews != null) {
-
-            for (BookReviewResponseDTO review : reviews) {
-                for (String genre : review.getGenres()) {
-                    result.put(genre, result.getOrDefault(genre, 0L) + 1);
-                }
+        for (BookReviewResponseDTO review : reviews) {
+            for (String genre : review.getGenres()) {
+                result.put(genre, result.getOrDefault(genre, 0L) + 1);
             }
         }
+
         return result;
     }
 
@@ -108,14 +119,13 @@ public class DashboardServiceImpl implements DashboardService {
 
     private Map<String, Long> getMonthlyStats(String token, Integer year) {
 
-        List<BookReviewResponseDTO> reviews = bookReviewService.findAll(token);
+        List<BookReviewResponseDTO> reviews = Optional.ofNullable(bookReviewService.findAll(token))
+                .orElse(Collections.emptyList());
 
         Map<String, Long> result = new HashMap<>();
 
-        if (reviews == null) return result;
-
         for (BookReviewResponseDTO review : reviews) {
-            String month = review.getFinishDate().getMonth().toString().substring(0,3);
+            String month = review.getFinishDate().getMonth().toString().substring(0, 3);
             if (review.getFinishDate().getYear() == year) {
                 result.put(month, result.getOrDefault(month, 0L) + 1);
             }
