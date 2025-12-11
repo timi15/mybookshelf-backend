@@ -1,4 +1,4 @@
-package hu.unideb.timi15.mybookshelf.service.dto.book.request;
+package hu.unideb.timi15.mybookshelf.service.dto.book;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ public class CreateBookRequestDTO {
     private String author;
 
     @NotBlank
-    private String image;
+    private String coverUrl;
 
     @NotBlank
     private String plot;

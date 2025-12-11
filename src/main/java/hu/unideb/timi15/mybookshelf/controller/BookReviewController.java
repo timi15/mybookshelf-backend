@@ -1,9 +1,9 @@
 package hu.unideb.timi15.mybookshelf.controller;
 
 import hu.unideb.timi15.mybookshelf.service.BookReviewService;
-import hu.unideb.timi15.mybookshelf.service.dto.review.request.CreateBookReviewRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.review.request.UpdateBookReviewRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.review.response.BookReviewResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.review.CreateBookReviewRequestDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.review.UpdateBookReviewRequestDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.review.BookReviewResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

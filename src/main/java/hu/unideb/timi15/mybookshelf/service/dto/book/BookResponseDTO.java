@@ -1,4 +1,4 @@
-package hu.unideb.timi15.mybookshelf.service.dto.book.response;
+package hu.unideb.timi15.mybookshelf.service.dto.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +15,6 @@ public class BookResponseDTO {
     private String userId;
     private String title;
     private String author;
-    private String image;
+    private String coverUrl;
     private String plot;
 }

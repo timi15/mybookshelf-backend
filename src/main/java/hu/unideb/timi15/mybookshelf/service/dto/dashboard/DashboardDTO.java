@@ -9,11 +9,11 @@ import java.util.Map;
 @Data
 @Builder
 public class DashboardDTO {
-    private long totalBooks;
-    private long totalLovedBooks;
-    private String lastReadBookImage;
-    private List<String> top5BookImage;
+    private long numberOfReadBooks;
+    private long numberOfFavouriteBooks;
+    private String lastReadBookCoverUrl;
+    private List<String> top5BookCoverUrls;
     private List<String> top3Genres;
-    private Map<String, Long> genreStat;
-    private Map<String, Long> monthlyStat;
+    private Map<String, Long> genreStats;
+    private Map<String, Long> monthlyReadingStats;
 }

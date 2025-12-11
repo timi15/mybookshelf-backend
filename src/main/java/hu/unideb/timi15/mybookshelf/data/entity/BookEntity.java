@@ -1,7 +1,7 @@
 package hu.unideb.timi15.mybookshelf.data.entity;
 
 import com.google.cloud.spring.data.firestore.Document;
-import hu.unideb.timi15.mybookshelf.data.entity.common.BaseEntity;
+import hu.unideb.timi15.mybookshelf.common.entity.BaseEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -15,7 +15,7 @@ public class BookEntity extends BaseEntity {
 
     private String isbn13;
     private String userId;
-    private String image;
+    private String coverUrl;
     private String author;
     private String title;
     private String plot;

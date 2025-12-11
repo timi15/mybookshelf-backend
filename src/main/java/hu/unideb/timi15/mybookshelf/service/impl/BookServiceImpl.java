@@ -6,7 +6,7 @@ import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.BookMapper;
 import hu.unideb.timi15.mybookshelf.data.repository.BookRepository;
 import hu.unideb.timi15.mybookshelf.service.BookService;
-import hu.unideb.timi15.mybookshelf.service.dto.book.response.BookResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.book.BookResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

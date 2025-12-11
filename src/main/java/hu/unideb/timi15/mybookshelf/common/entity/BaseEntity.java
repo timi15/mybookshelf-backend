@@ -1,4 +1,4 @@
-package hu.unideb.timi15.mybookshelf.data.entity.common;
+package hu.unideb.timi15.mybookshelf.common.entity;
 
 import com.google.cloud.firestore.annotation.DocumentId;
 import lombok.Data;

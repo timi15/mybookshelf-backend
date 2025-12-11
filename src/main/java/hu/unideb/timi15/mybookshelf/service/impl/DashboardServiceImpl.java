@@ -8,7 +8,7 @@ import hu.unideb.timi15.mybookshelf.data.repository.LovedListRepository;
 import hu.unideb.timi15.mybookshelf.service.BookReviewService;
 import hu.unideb.timi15.mybookshelf.service.DashboardService;
 import hu.unideb.timi15.mybookshelf.service.dto.dashboard.DashboardDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.review.response.BookReviewResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.review.BookReviewResponseDTO;
 import hu.unideb.timi15.mybookshelf.utils.FirebaseAuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Limit;
@@ -30,35 +30,35 @@ public class DashboardServiceImpl implements DashboardService {
 
         String userId = FirebaseAuthUtil.getUserId(token);
 
-        Long totalBooksCount = getTotalBooksCount(userId);
-        Long lovedBooksCount = getLovedBooksCount(userId);
-        String lastReadBookImage = getLastReadBook(userId);
-        List<String> top5BookImage = getTop5Book(userId);
+        Long numberOfReadBooks = getNumberOfReadBooks(userId);
+        Long numberOfFavouriteBooks = getNumberOfFavouriteBooks(userId);
+        String lastReadBookCoverUrl = getLastReadBookCoverUrl(userId);
+        List<String> top5BookCoverUrls = getTop5BookCoverUrls(userId);
         List<String> top3Genres = getTop3Genres(token);
-        Map<String, Long> genreStat = getGenreStat(token);
-        Map<String, Long> monthlyStats = getMonthlyStats(token, year);
+        Map<String, Long> genreStats = getGenreStats(token);
+        Map<String, Long> monthlyReadingStats = getMonthlyReadingStats(token, year);
 
         return DashboardDTO.builder()
-                .totalBooks(totalBooksCount)
-                .totalLovedBooks(lovedBooksCount)
-                .lastReadBookImage(lastReadBookImage)
-                .top5BookImage(top5BookImage)
+                .numberOfReadBooks(numberOfReadBooks)
+                .numberOfFavouriteBooks(numberOfFavouriteBooks)
+                .lastReadBookCoverUrl(lastReadBookCoverUrl)
+                .top5BookCoverUrls(top5BookCoverUrls)
                 .top3Genres(top3Genres)
-                .genreStat(genreStat)
-                .monthlyStat(monthlyStats)
+                .genreStats(genreStats)
+                .monthlyReadingStats(monthlyReadingStats)
                 .build();
     }
 
 
-    private Long getTotalBooksCount(String userId) {
+    private Long getNumberOfReadBooks(String userId) {
         return reviewRepository.countAllByUserId(userId).block();
     }
 
-    private Long getLovedBooksCount(String userId) {
+    private Long getNumberOfFavouriteBooks(String userId) {
         return lovedListRepository.countAllByUserId(userId).block();
     }
 
-    private String getLastReadBook(String userId) {
+    private String getLastReadBookCoverUrl(String userId) {
 
         BookReviewEntity lastReview = reviewRepository
                 .findByUserIdOrderByFinishDateDesc(userId, Limit.of(1))
@@ -67,11 +67,11 @@ public class DashboardServiceImpl implements DashboardService {
         if (lastReview == null) return null;
 
         return Optional.ofNullable(bookRepository.findByIsbn13(lastReview.getIsbn13()).block())
-                .map(BookEntity::getImage)
+                .map(BookEntity::getCoverUrl)
                 .orElse(null);
     }
 
-    private List<String> getTop5Book(String userId) {
+    private List<String> getTop5BookCoverUrls(String userId) {
         List<String> result = new ArrayList<>();
 
         List<BookReviewEntity> reviews = reviewRepository
@@ -83,14 +83,14 @@ public class DashboardServiceImpl implements DashboardService {
 
         for (BookReviewEntity review : reviews) {
             Optional.ofNullable(bookRepository.findByIsbn13(review.getIsbn13()).block())
-                    .map(BookEntity::getImage)
+                    .map(BookEntity::getCoverUrl)
                     .ifPresent(result::add);
         }
 
         return result;
     }
 
-    private Map<String, Long> getGenreStat(String token) {
+    private Map<String, Long> getGenreStats(String token) {
 
         List<BookReviewResponseDTO> reviews = Optional.ofNullable(bookReviewService.findAll(token))
                 .orElse(Collections.emptyList());
@@ -108,7 +108,7 @@ public class DashboardServiceImpl implements DashboardService {
 
     private List<String> getTop3Genres(String token) {
 
-        Map<String, Long> stat = getGenreStat(token);
+        Map<String, Long> stat = getGenreStats(token);
 
         return stat.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
@@ -117,7 +117,7 @@ public class DashboardServiceImpl implements DashboardService {
                 .toList();
     }
 
-    private Map<String, Long> getMonthlyStats(String token, Integer year) {
+    private Map<String, Long> getMonthlyReadingStats(String token, Integer year) {
 
         List<BookReviewResponseDTO> reviews = Optional.ofNullable(bookReviewService.findAll(token))
                 .orElse(Collections.emptyList());
