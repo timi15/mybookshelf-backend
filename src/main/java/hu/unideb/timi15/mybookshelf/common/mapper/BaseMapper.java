@@ -1,6 +1,6 @@
-package hu.unideb.timi15.mybookshelf.mapper.common;
+package hu.unideb.timi15.mybookshelf.common.mapper;
 
-import hu.unideb.timi15.mybookshelf.data.entity.common.BaseEntity;
+import hu.unideb.timi15.mybookshelf.common.entity.BaseEntity;
 import org.mapstruct.MapperConfig;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;

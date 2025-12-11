@@ -1,7 +1,7 @@
 package hu.unideb.timi15.mybookshelf.data.entity;
 
 import com.google.cloud.spring.data.firestore.Document;
-import hu.unideb.timi15.mybookshelf.data.entity.common.BaseListEntity;
+import hu.unideb.timi15.mybookshelf.common.entity.BaseListEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

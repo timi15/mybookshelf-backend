@@ -2,7 +2,7 @@ package hu.unideb.timi15.mybookshelf.data.entity;
 
 import com.google.cloud.Timestamp;
 import com.google.cloud.spring.data.firestore.Document;
-import hu.unideb.timi15.mybookshelf.data.entity.common.BaseEntity;
+import hu.unideb.timi15.mybookshelf.common.entity.BaseEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

@@ -1,10 +1,10 @@
 package hu.unideb.timi15.mybookshelf.mapper;
 
 import hu.unideb.timi15.mybookshelf.data.entity.BookReviewEntity;
-import hu.unideb.timi15.mybookshelf.mapper.common.BaseMapper;
-import hu.unideb.timi15.mybookshelf.service.dto.review.request.CreateBookReviewRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.review.request.UpdateBookReviewRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.review.response.BookReviewResponseDTO;
+import hu.unideb.timi15.mybookshelf.common.mapper.BaseMapper;
+import hu.unideb.timi15.mybookshelf.service.dto.review.CreateBookReviewRequestDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.review.UpdateBookReviewRequestDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.review.BookReviewResponseDTO;
 import org.mapstruct.*;
 
 
