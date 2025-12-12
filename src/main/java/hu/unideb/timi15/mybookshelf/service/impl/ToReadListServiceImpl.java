@@ -4,10 +4,10 @@ import hu.unideb.timi15.mybookshelf.data.entity.ToReadListEntity;
 import hu.unideb.timi15.mybookshelf.data.repository.BookRepository;
 import hu.unideb.timi15.mybookshelf.data.repository.ToReadListRepository;
 import hu.unideb.timi15.mybookshelf.common.repository.BaseListRepository;
+import hu.unideb.timi15.mybookshelf.common.service.BaseListService;
 import hu.unideb.timi15.mybookshelf.mapper.ListMapper;
 import hu.unideb.timi15.mybookshelf.service.BookService;
-import hu.unideb.timi15.mybookshelf.service.dto.book.CreateBookRequestDTO;
-import hu.unideb.timi15.mybookshelf.common.service.BaseListService;
+import hu.unideb.timi15.mybookshelf.service.dto.book.CreateBookReqDto;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,14 +25,13 @@ public class ToReadListServiceImpl extends BaseListService<ToReadListEntity> {
         this.toReadListRepository = toReadListRepository;
     }
 
-
     @Override
     protected BaseListRepository<ToReadListEntity> getRepository() {
         return toReadListRepository;
     }
 
     @Override
-    protected ToReadListEntity mapToEntity(CreateBookRequestDTO dto) {
+    protected ToReadListEntity mapToEntity(CreateBookReqDto dto) {
         return listMapper.toToReadListEntity(dto);
     }
 

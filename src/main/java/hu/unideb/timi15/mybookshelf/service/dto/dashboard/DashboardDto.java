@@ -1,14 +1,14 @@
 package hu.unideb.timi15.mybookshelf.service.dto.dashboard;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
 
 import java.util.List;
 import java.util.Map;
 
 @Data
 @Builder
-public class DashboardDTO {
+public class DashboardDto {
     private long numberOfReadBooks;
     private long numberOfFavouriteBooks;
     private String lastReadBookCoverUrl;

@@ -6,21 +6,21 @@ import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.BookMapper;
 import hu.unideb.timi15.mybookshelf.mapper.BookReviewMapper;
 import hu.unideb.timi15.mybookshelf.data.repository.BookReviewRepository;
-import hu.unideb.timi15.mybookshelf.service.BookReviewService;
+import hu.unideb.timi15.mybookshelf.service.ReviewService;
 import hu.unideb.timi15.mybookshelf.service.BookService;
-import hu.unideb.timi15.mybookshelf.service.dto.book.BookResponseDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.review.CreateBookReviewRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.review.UpdateBookReviewRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.review.BookReviewResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.book.BookResDto;
+import hu.unideb.timi15.mybookshelf.service.dto.review.CreateReviewReqDto;
+import hu.unideb.timi15.mybookshelf.service.dto.review.ReviewResDto;
+import hu.unideb.timi15.mybookshelf.service.dto.review.UpdateReviewReqDto;
 import hu.unideb.timi15.mybookshelf.utils.FirebaseAuthUtil;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BookReviewServiceImpl implements BookReviewService {
+public class ReviewServiceImpl implements ReviewService {
 
     private final BookReviewRepository bookReviewRepository;
     private final BookService bookService;
@@ -28,11 +28,11 @@ public class BookReviewServiceImpl implements BookReviewService {
     private final BookMapper bookMapper;
 
     @Override
-    public BookReviewResponseDTO save(String token, CreateBookReviewRequestDTO dto) {
+    public ReviewResDto save(String token, CreateReviewReqDto dto) {
         String userId = FirebaseAuthUtil.getUserId(token);
         validateIsbnUnique(userId, dto.getIsbn13());
 
-        BookResponseDTO savedBook = bookService.addOrGetBook(
+        BookResDto savedBook = bookService.addOrGetBook(
                 bookMapper.toEntity(dto.getBook()),
                 userId
         );
@@ -43,14 +43,14 @@ public class BookReviewServiceImpl implements BookReviewService {
 
         BookReviewEntity saved = bookReviewRepository.save(reviewEntity).block();
 
-        BookReviewResponseDTO response = bookReviewMapper.toResponseDTO(saved);
+        ReviewResDto response = bookReviewMapper.toResponseDto(saved);
         response.setBook(savedBook);
 
         return response;
     }
 
     @Override
-    public BookReviewResponseDTO update(String token, String isbn13, UpdateBookReviewRequestDTO dto) {
+    public ReviewResDto update(String token, String isbn13, UpdateReviewReqDto dto) {
         String userId = FirebaseAuthUtil.getUserId(token);
 
         BookReviewEntity existing = bookReviewRepository
@@ -65,16 +65,16 @@ public class BookReviewServiceImpl implements BookReviewService {
 
         BookReviewEntity updated = bookReviewRepository.save(existing).block();
 
-        BookResponseDTO book = bookService.findByIsbn13(isbn13);
+        BookResDto book = bookService.findByIsbn13(isbn13);
 
-        BookReviewResponseDTO response = bookReviewMapper.toResponseDTO(updated);
+        ReviewResDto response = bookReviewMapper.toResponseDto(updated);
         response.setBook(book);
 
         return response;
     }
 
     @Override
-    public List<BookReviewResponseDTO> findAll(String token) {
+    public List<ReviewResDto> findAll(String token) {
         String userId = FirebaseAuthUtil.getUserId(token);
 
         List<BookReviewEntity> reviews = bookReviewRepository
@@ -83,14 +83,14 @@ public class BookReviewServiceImpl implements BookReviewService {
                 .block();
 
         return reviews.stream().map(review -> {
-            BookReviewResponseDTO dto = bookReviewMapper.toResponseDTO(review);
+            ReviewResDto dto = bookReviewMapper.toResponseDto(review);
             dto.setBook(bookService.findByIsbn13(review.getIsbn13()));
             return dto;
         }).toList();
     }
 
     @Override
-    public BookReviewResponseDTO findByISBN(String token, String isbn13) {
+    public ReviewResDto findByIsbn(String token, String isbn13) {
         String userId = FirebaseAuthUtil.getUserId(token);
 
         BookReviewEntity review = bookReviewRepository
@@ -101,14 +101,14 @@ public class BookReviewServiceImpl implements BookReviewService {
             throw new NotFoundException("Book review not found with ISBN: " + isbn13);
         }
 
-        BookReviewResponseDTO dto = bookReviewMapper.toResponseDTO(review);
+        ReviewResDto dto = bookReviewMapper.toResponseDto(review);
         dto.setBook(bookService.findByIsbn13(isbn13));
 
         return dto;
     }
 
     @Override
-    public void deleteByISBN(String token, String isbn13) {
+    public void deleteByIsbn(String token, String isbn13) {
         String userId = FirebaseAuthUtil.getUserId(token);
 
         BookReviewEntity review = bookReviewRepository

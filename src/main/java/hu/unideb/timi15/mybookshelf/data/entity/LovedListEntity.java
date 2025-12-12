@@ -2,7 +2,9 @@ package hu.unideb.timi15.mybookshelf.data.entity;
 
 import com.google.cloud.spring.data.firestore.Document;
 import hu.unideb.timi15.mybookshelf.common.entity.BaseListEntity;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
 @Data

@@ -13,7 +13,7 @@ import java.util.List;
 )
 public interface BaseMapper<CreateReqT, UpdateReqT, ResT, E extends BaseEntity> {
 
-    ResT toResponseDTO(E entity);
+    ResT toResponseDto(E entity);
 
     E toEntity(CreateReqT dto);
 

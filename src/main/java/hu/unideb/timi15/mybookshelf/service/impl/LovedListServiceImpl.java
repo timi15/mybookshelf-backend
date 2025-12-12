@@ -6,7 +6,7 @@ import hu.unideb.timi15.mybookshelf.mapper.ListMapper;
 import hu.unideb.timi15.mybookshelf.data.repository.BookRepository;
 import hu.unideb.timi15.mybookshelf.data.repository.LovedListRepository;
 import hu.unideb.timi15.mybookshelf.service.BookService;
-import hu.unideb.timi15.mybookshelf.service.dto.book.CreateBookRequestDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.book.CreateBookReqDto;
 import hu.unideb.timi15.mybookshelf.common.service.BaseListService;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class LovedListServiceImpl extends BaseListService<LovedListEntity> {
     }
 
     @Override
-    protected LovedListEntity mapToEntity(CreateBookRequestDTO dto) {
+    protected LovedListEntity mapToEntity(CreateBookReqDto dto) {
         return listMapper.toLovedListEntity(dto);
     }
 
