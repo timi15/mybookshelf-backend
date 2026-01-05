@@ -1,18 +1,21 @@
 package hu.unideb.timi15.mybookshelf.service.dto.review;
 
-import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
-public class UpdateBookReviewRequestDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateReviewReqDto {
 
     @PastOrPresent
     private LocalDate startDate;

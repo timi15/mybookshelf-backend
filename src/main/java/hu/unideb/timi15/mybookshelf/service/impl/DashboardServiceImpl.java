@@ -5,28 +5,37 @@ import hu.unideb.timi15.mybookshelf.data.entity.BookReviewEntity;
 import hu.unideb.timi15.mybookshelf.data.repository.BookRepository;
 import hu.unideb.timi15.mybookshelf.data.repository.BookReviewRepository;
 import hu.unideb.timi15.mybookshelf.data.repository.LovedListRepository;
-import hu.unideb.timi15.mybookshelf.service.BookReviewService;
+import hu.unideb.timi15.mybookshelf.service.ReviewService;
 import hu.unideb.timi15.mybookshelf.service.DashboardService;
-import hu.unideb.timi15.mybookshelf.service.dto.dashboard.DashboardDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.review.BookReviewResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.dashboard.DashboardDto;
+import hu.unideb.timi15.mybookshelf.service.dto.review.ReviewResDto;
 import hu.unideb.timi15.mybookshelf.utils.FirebaseAuthUtil;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Limit;
 import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class DashboardServiceImpl implements DashboardService {
 
     private final BookRepository bookRepository;
     private final LovedListRepository lovedListRepository;
     private final BookReviewRepository reviewRepository;
-    private final BookReviewService bookReviewService;
+    private final ReviewService reviewService;
 
     @Override
-    public DashboardDTO getDashboard(Integer year, String token) {
+    public DashboardDto getDashboard(Integer year, String token) {
+
+        log.info("getDashboard called for year={}", year);
 
         String userId = FirebaseAuthUtil.getUserId(token);
 
@@ -38,7 +47,9 @@ public class DashboardServiceImpl implements DashboardService {
         Map<String, Long> genreStats = getGenreStats(token);
         Map<String, Long> monthlyReadingStats = getMonthlyReadingStats(token, year);
 
-        return DashboardDTO.builder()
+        log.info("Dashboard data generated for userId={}", userId);
+
+        return DashboardDto.builder()
                 .numberOfReadBooks(numberOfReadBooks)
                 .numberOfFavouriteBooks(numberOfFavouriteBooks)
                 .lastReadBookCoverUrl(lastReadBookCoverUrl)
@@ -64,7 +75,9 @@ public class DashboardServiceImpl implements DashboardService {
                 .findByUserIdOrderByFinishDateDesc(userId, Limit.of(1))
                 .block();
 
-        if (lastReview == null) return null;
+        if (lastReview == null) {
+            return null;
+        }
 
         return Optional.ofNullable(bookRepository.findByIsbn13(lastReview.getIsbn13()).block())
                 .map(BookEntity::getCoverUrl)
@@ -79,7 +92,9 @@ public class DashboardServiceImpl implements DashboardService {
                 .collectList()
                 .block();
 
-        if (reviews == null) return result;
+        if (reviews == null) {
+            return result;
+        }
 
         for (BookReviewEntity review : reviews) {
             Optional.ofNullable(bookRepository.findByIsbn13(review.getIsbn13()).block())
@@ -92,12 +107,12 @@ public class DashboardServiceImpl implements DashboardService {
 
     private Map<String, Long> getGenreStats(String token) {
 
-        List<BookReviewResponseDTO> reviews = Optional.ofNullable(bookReviewService.findAll(token))
+        List<ReviewResDto> reviews = Optional.ofNullable(reviewService.findAll(token))
                 .orElse(Collections.emptyList());
 
         Map<String, Long> result = new HashMap<>();
 
-        for (BookReviewResponseDTO review : reviews) {
+        for (ReviewResDto review : reviews) {
             for (String genre : review.getGenres()) {
                 result.put(genre, result.getOrDefault(genre, 0L) + 1);
             }
@@ -119,12 +134,12 @@ public class DashboardServiceImpl implements DashboardService {
 
     private Map<String, Long> getMonthlyReadingStats(String token, Integer year) {
 
-        List<BookReviewResponseDTO> reviews = Optional.ofNullable(bookReviewService.findAll(token))
+        List<ReviewResDto> reviews = Optional.ofNullable(reviewService.findAll(token))
                 .orElse(Collections.emptyList());
 
         Map<String, Long> result = new HashMap<>();
 
-        for (BookReviewResponseDTO review : reviews) {
+        for (ReviewResDto review : reviews) {
             String month = review.getFinishDate().getMonth().toString().substring(0, 3);
             if (review.getFinishDate().getYear() == year) {
                 result.put(month, result.getOrDefault(month, 0L) + 1);

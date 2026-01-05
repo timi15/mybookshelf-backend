@@ -1,9 +1,9 @@
 package hu.unideb.timi15.mybookshelf.service;
 
-import hu.unideb.timi15.mybookshelf.service.dto.dashboard.DashboardDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.dashboard.DashboardDto;
 
 public interface DashboardService {
 
-    DashboardDTO getDashboard(Integer year, String token);
+    DashboardDto getDashboard(Integer year, String token);
 
 }

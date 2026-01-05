@@ -1,15 +1,15 @@
 package hu.unideb.timi15.mybookshelf.service.dto.book;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
-public class BookResponseDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class BookResDto {
 
     private String isbn13;
     private String userId;

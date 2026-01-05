@@ -2,8 +2,8 @@ package hu.unideb.timi15.mybookshelf.utils;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import hu.unideb.timi15.mybookshelf.exception.NoSessionException;
 import lombok.experimental.UtilityClass;
+import hu.unideb.timi15.mybookshelf.exception.NoSessionException;
 
 @UtilityClass
 public class FirebaseAuthUtil {

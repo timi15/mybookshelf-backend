@@ -1,19 +1,19 @@
 package hu.unideb.timi15.mybookshelf.service.dto.review;
 
-import hu.unideb.timi15.mybookshelf.service.dto.book.BookResponseDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import hu.unideb.timi15.mybookshelf.service.dto.book.BookResDto;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
-public class BookReviewResponseDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReviewResDto {
 
     private String documentId;
     private String isbn13;
@@ -22,5 +22,5 @@ public class BookReviewResponseDTO {
     private List<String> genres;
     private String reflection;
     private Integer rate;
-    private BookResponseDTO book;
+    private BookResDto book;
 }

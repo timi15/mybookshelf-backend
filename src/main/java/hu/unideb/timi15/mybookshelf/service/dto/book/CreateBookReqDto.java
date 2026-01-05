@@ -1,16 +1,16 @@
 package hu.unideb.timi15.mybookshelf.service.dto.book;
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
-public class CreateBookRequestDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateBookReqDto {
 
     @NotBlank
     private String isbn13;

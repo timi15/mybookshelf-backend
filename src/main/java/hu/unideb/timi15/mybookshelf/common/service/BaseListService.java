@@ -1,16 +1,16 @@
 package hu.unideb.timi15.mybookshelf.common.service;
 
 import hu.unideb.timi15.mybookshelf.data.entity.BookEntity;
-import hu.unideb.timi15.mybookshelf.common.entity.BaseListEntity;
 import hu.unideb.timi15.mybookshelf.data.repository.BookRepository;
+import hu.unideb.timi15.mybookshelf.common.entity.BaseListEntity;
 import hu.unideb.timi15.mybookshelf.common.repository.BaseListRepository;
 import hu.unideb.timi15.mybookshelf.exception.AlreadyInListException;
 import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.ListMapper;
 import hu.unideb.timi15.mybookshelf.service.BookService;
 import hu.unideb.timi15.mybookshelf.service.ListService;
-import hu.unideb.timi15.mybookshelf.service.dto.book.CreateBookRequestDTO;
-import hu.unideb.timi15.mybookshelf.service.dto.list.ListItemResponseDTO;
+import hu.unideb.timi15.mybookshelf.service.dto.list.ListItemResDto;
+import hu.unideb.timi15.mybookshelf.service.dto.book.CreateBookReqDto;
 import hu.unideb.timi15.mybookshelf.utils.FirebaseAuthUtil;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +33,12 @@ public abstract class BaseListService<T extends BaseListEntity> implements ListS
 
     protected abstract BaseListRepository<T> getRepository();
 
-    protected abstract T mapToEntity(CreateBookRequestDTO dto);
+    protected abstract T mapToEntity(CreateBookReqDto dto);
 
     protected abstract String duplicateMessage();
 
     @Override
-    public ListItemResponseDTO addToList(String token, CreateBookRequestDTO dto) {
+    public ListItemResDto addToList(String token, CreateBookReqDto dto) {
         String userId = FirebaseAuthUtil.getUserId(token);
 
         BookEntity book = bookRepository.findByIsbn13(dto.getIsbn13()).block();
@@ -66,7 +66,7 @@ public abstract class BaseListService<T extends BaseListEntity> implements ListS
     }
 
     @Override
-    public List<ListItemResponseDTO> getList(String token) {
+    public List<ListItemResDto> getList(String token) {
         String userId = FirebaseAuthUtil.getUserId(token);
 
         return getRepository().findByUserId(userId)
