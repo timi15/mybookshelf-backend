@@ -10,6 +10,7 @@ import hu.unideb.timi15.mybookshelf.service.DashboardService;
 import hu.unideb.timi15.mybookshelf.service.dto.dashboard.DashboardDto;
 import hu.unideb.timi15.mybookshelf.service.dto.review.ReviewResDto;
 import hu.unideb.timi15.mybookshelf.utils.FirebaseAuthUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Limit;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class DashboardServiceImpl implements DashboardService {
 
@@ -34,6 +35,8 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public DashboardDto getDashboard(Integer year, String token) {
 
+        log.info("getDashboard called for year={}", year);
+
         String userId = FirebaseAuthUtil.getUserId(token);
 
         Long numberOfReadBooks = getNumberOfReadBooks(userId);
@@ -43,6 +46,8 @@ public class DashboardServiceImpl implements DashboardService {
         List<String> top3Genres = getTop3Genres(token);
         Map<String, Long> genreStats = getGenreStats(token);
         Map<String, Long> monthlyReadingStats = getMonthlyReadingStats(token, year);
+
+        log.info("Dashboard data generated for userId={}", userId);
 
         return DashboardDto.builder()
                 .numberOfReadBooks(numberOfReadBooks)
