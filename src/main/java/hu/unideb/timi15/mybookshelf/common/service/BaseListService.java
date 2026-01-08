@@ -51,7 +51,7 @@ public abstract class BaseListService<T extends BaseListEntity> implements ListS
                     .plot(dto.getPlot())
                     .build();
         }
-        bookService.addOrGetBook(book, userId);
+        bookService.getOrCreateBook(book, userId);
 
         if (getRepository().findByUserIdAndIsbn13(userId, dto.getIsbn13()).block() != null) {
             throw new AlreadyInListException(duplicateMessage());

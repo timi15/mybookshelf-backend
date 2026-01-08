@@ -37,7 +37,7 @@ public class ReviewServiceImpl implements ReviewService {
 
         log.info("Creating new review. userId={}, isbn={}", userId, dto.getIsbn13());
 
-        BookResDto savedBook = bookService.addOrGetBook(
+        BookResDto savedBook = bookService.getOrCreateBook(
                 bookMapper.toEntity(dto.getBook()),
                 userId
         );

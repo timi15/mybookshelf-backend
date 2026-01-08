@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BookService {
 
-    BookResDto addOrGetBook(BookEntity book, String userId);
+    BookResDto getOrCreateBook(BookEntity book, String userId);
 
     List<BookResDto> findAll(String token);
 
