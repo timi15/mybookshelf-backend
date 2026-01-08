@@ -12,4 +12,4 @@ FROM eclipse-temurin:21-jdk
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
-CMD ["java", "-Xms64m", "-Xmx256m", "-XX:MaxMetaspaceSize=64m", "-XX:+UseContainerSupport", "-jar", "app.jar"]
+CMD ["java", "-Xms64m", "-Xmx256m", "-XX:MaxMetaspaceSize=256m", "-XX:+UseContainerSupport", "-jar", "app.jar"]
