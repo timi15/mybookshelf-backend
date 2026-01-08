@@ -3,28 +3,35 @@ package hu.unideb.timi15.mybookshelf.config;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import org.springframework.core.io.Resource;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
-@Service
+@Configuration
 @Slf4j
 public class FirebaseConfig {
 
-//    @Value("${firebase.config.file}")
-//    private Resource serviceAccount;
-
-    @PostConstruct
-    public void initializeFirebase() throws IOException {
+    @Bean
+    public FirebaseApp createFireBaseApp() throws IOException {
 
         String firebaseCredentialsJson = System.getenv("FIREBASE_CREDENTIALS_JSON");
+
+        if (firebaseCredentialsJson == null || firebaseCredentialsJson.trim().isEmpty()) {
+            String base64Credentials = System.getenv("FIREBASE_CREDENTIALS_BASE64");
+            if (base64Credentials != null && !base64Credentials.trim().isEmpty()) {
+                byte[] decodedBytes = Base64.getDecoder().decode(base64Credentials);
+                firebaseCredentialsJson = new String(decodedBytes, StandardCharsets.UTF_8);
+            } else {
+                throw new IOException("Firebase credentials not found in environment variables. " +
+                        "Please set either FIREBASE_CREDENTIALS_JSON or FIREBASE_CREDENTIALS_BASE64");
+            }
+        }
 
         InputStream credentialsStream = new ByteArrayInputStream(
                 firebaseCredentialsJson.getBytes(StandardCharsets.UTF_8)
@@ -34,11 +41,9 @@ public class FirebaseConfig {
                 .setCredentials(GoogleCredentials.fromStream(credentialsStream))
                 .build();
 
-        if (FirebaseApp.getApps().isEmpty()) {
-            FirebaseApp.initializeApp(options);
-        }
+        log.info("Firebase config initialized from environment variables");
 
-        log.info("Firebase config initialized");
+        return FirebaseApp.initializeApp(options);
     }
 
 }
