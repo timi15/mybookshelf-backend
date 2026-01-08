@@ -1,10 +1,11 @@
-FROM maven:3.9.9-eclipse-temurin-21 AS build
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
-COPY pom.xml .
-COPY checkstyle.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN chmod +x mvnw
 
+COPY src ./src
+RUN ./mvnw clean package -DskipTests
 
 FROM eclipse-temurin:21-jdk
 WORKDIR /app
