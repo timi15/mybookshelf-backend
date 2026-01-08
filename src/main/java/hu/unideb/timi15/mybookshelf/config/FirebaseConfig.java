@@ -34,8 +34,7 @@ public class FirebaseConfig {
                 byte[] decodedBytes = Base64.getDecoder().decode(base64Credentials);
                 firebaseCredentialsJson = new String(decodedBytes, StandardCharsets.UTF_8);
             } else {
-                throw new IOException("Firebase credentials not found in environment variables. " +
-                        "Please set either FIREBASE_CREDENTIALS_JSON or FIREBASE_CREDENTIALS_BASE64");
+                throw new IOException("Firebase credentials not found in environment variables. ");
             }
         }
 
