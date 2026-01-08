@@ -22,7 +22,7 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public BookResDto addOrGetBook(BookEntity book, String userId) {
+    public BookResDto getOrCreateBook(BookEntity book, String userId) {
 
         log.info("addOrGetBook called with isbn13={}", book.getIsbn13());
 
