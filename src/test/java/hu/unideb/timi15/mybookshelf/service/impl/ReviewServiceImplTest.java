@@ -11,6 +11,7 @@ import hu.unideb.timi15.mybookshelf.service.BookService;
 import hu.unideb.timi15.mybookshelf.service.dto.book.BookResDto;
 import hu.unideb.timi15.mybookshelf.service.dto.review.CreateReviewReqDto;
 import hu.unideb.timi15.mybookshelf.service.dto.review.ReviewResDto;
+import hu.unideb.timi15.mybookshelf.service.dto.review.UpdateReviewReqDto;
 import hu.unideb.timi15.mybookshelf.utils.FirebaseAuthUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -117,4 +118,74 @@ class ReviewServiceImplTest {
         assertThrows(NotFoundException.class,
                 () -> reviewService.findByIsbn("token", "1111111111111"));
     }
+
+    @Test
+    void update_existingReview_updatesSuccessfully() {
+        String isbn = "1111111111111";
+
+        UpdateReviewReqDto dto = new UpdateReviewReqDto();
+
+        BookReviewEntity existing = new BookReviewEntity();
+        existing.setIsbn13(isbn);
+        existing.setDocumentId("doc1");
+
+        BookResDto bookDto = new BookResDto();
+        bookDto.setIsbn13(isbn);
+
+        when(bookReviewRepository.findByUserIdAndIsbn13("user1", isbn))
+                .thenReturn(Mono.just(existing));
+
+        when(bookReviewRepository.save(existing))
+                .thenReturn(Mono.just(existing));
+
+        when(bookService.findByIsbn13(isbn))
+                .thenReturn(bookDto);
+
+        when(bookReviewMapper.toResponseDto(existing))
+                .thenReturn(new ReviewResDto());
+
+        ReviewResDto result = reviewService.update("token", isbn, dto);
+
+        assertNotNull(result);
+        verify(bookReviewMapper).updateEntityFromDto(dto, existing);
+        verify(bookReviewRepository).save(existing);
+    }
+
+    @Test
+    void update_notExistingReview_throwsException() {
+        when(bookReviewRepository.findByUserIdAndIsbn13("user1", "1111111111111"))
+                .thenReturn(Mono.empty());
+
+        assertThrows(NotFoundException.class,
+                () -> reviewService.update("token", "1111111111111", new UpdateReviewReqDto()));
+    }
+
+    @Test
+    void delete_existingReview_deletesSuccessfully() {
+        String isbn = "1111111111111";
+
+        BookReviewEntity entity = new BookReviewEntity();
+        entity.setIsbn13(isbn);
+        entity.setDocumentId("doc1");
+
+        when(bookReviewRepository.findByUserIdAndIsbn13("user1", isbn))
+                .thenReturn(Mono.just(entity));
+
+        when(bookReviewRepository.delete(entity))
+                .thenReturn(Mono.empty());
+
+        reviewService.deleteByIsbn("token", isbn);
+
+        verify(bookReviewRepository).delete(entity);
+    }
+
+    @Test
+    void delete_notExistingReview_throwsException() {
+        when(bookReviewRepository.findByUserIdAndIsbn13("user1", "1111111111111"))
+                .thenReturn(Mono.empty());
+
+        assertThrows(NotFoundException.class,
+                () -> reviewService.deleteByIsbn("token", "1111111111111"));
+    }
+
 }
