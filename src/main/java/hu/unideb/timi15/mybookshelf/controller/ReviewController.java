@@ -32,15 +32,15 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.findAll(token));
     }
 
-    @GetMapping("/{isbn}")
+    @GetMapping("/{isbn13}")
     public ResponseEntity<ReviewResDto> findByIsbn(
             @RequestHeader("Authorization") String token,
-            @PathVariable String isbn
+            @PathVariable String isbn13
     ) {
-        return ResponseEntity.ok(reviewService.findByIsbn(token, isbn));
+        return ResponseEntity.ok(reviewService.findByIsbn(token, isbn13));
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<ReviewResDto> save(
             @RequestHeader("Authorization") String token,
             @Valid @RequestBody CreateReviewReqDto dto
@@ -49,23 +49,23 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.CREATED).body(resDto);
     }
 
-    @PutMapping("/{isbn}")
+    @PutMapping("/{isbn13}")
     public ResponseEntity<ReviewResDto> updateBookReview(
             @RequestHeader("Authorization") String token,
-            @PathVariable String isbn,
+            @PathVariable String isbn13,
             @Valid @RequestBody UpdateReviewReqDto dto) {
 
-        ReviewResDto updatedReview = reviewService.update(token, isbn, dto);
+        ReviewResDto updatedReview = reviewService.update(token, isbn13, dto);
 
         return ResponseEntity.ok(updatedReview);
     }
 
-    @DeleteMapping("/{isbn}")
+    @DeleteMapping("/{isbn13}")
     public ResponseEntity<?> deleteByIsbn(
             @RequestHeader("Authorization") String token,
-            @PathVariable String isbn
+            @PathVariable String isbn13
     ) {
-        reviewService.deleteByIsbn(token, isbn);
+        reviewService.deleteByIsbn(token, isbn13);
         return ResponseEntity.noContent().build();
     }
 
