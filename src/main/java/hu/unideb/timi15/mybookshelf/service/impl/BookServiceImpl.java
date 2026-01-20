@@ -2,7 +2,7 @@ package hu.unideb.timi15.mybookshelf.service.impl;
 
 import hu.unideb.timi15.mybookshelf.data.entity.BookEntity;
 import hu.unideb.timi15.mybookshelf.data.repository.BookRepository;
-import hu.unideb.timi15.mybookshelf.exception.NoSessionException;
+import hu.unideb.timi15.mybookshelf.exception.UnauthorizedException;
 import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
 import hu.unideb.timi15.mybookshelf.mapper.BookMapper;
 import hu.unideb.timi15.mybookshelf.service.BookService;
@@ -63,7 +63,7 @@ public class BookServiceImpl implements BookService {
     public List<BookResDto> findAll(String idToken) {
         if (null == idToken) {
             log.error("findAll called without session.");
-            throw new NoSessionException();
+            throw new UnauthorizedException("Authentication token is missing");
         }
         List<BookEntity> bookEntities = bookRepository.findAll().collectList().block();
         log.info("Fetching all books.");

@@ -25,7 +25,7 @@ public class ToReadListController {
         this.listService = listService;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ListItemResDto addToToReadList(
             @RequestHeader("Authorization") String token,
             @RequestBody CreateBookReqDto dto

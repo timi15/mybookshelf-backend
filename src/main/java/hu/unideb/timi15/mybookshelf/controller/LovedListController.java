@@ -25,7 +25,7 @@ public class LovedListController {
         this.listService = listService;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ListItemResDto addToLoved(
             @RequestHeader("Authorization") String token,
             @RequestBody CreateBookReqDto dto

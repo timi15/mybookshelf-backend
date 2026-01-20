@@ -3,14 +3,14 @@ package hu.unideb.timi15.mybookshelf.utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.experimental.UtilityClass;
-import hu.unideb.timi15.mybookshelf.exception.NoSessionException;
+import hu.unideb.timi15.mybookshelf.exception.UnauthorizedException;
 
 @UtilityClass
 public class FirebaseAuthUtil {
 
     public String getUserId(String authorizationHeader) {
         if (authorizationHeader == null || authorizationHeader.isEmpty()) {
-            throw new NoSessionException();
+            throw new UnauthorizedException("Authentication token is missing");
         }
 
         String idToken = authorizationHeader.startsWith("Bearer")
@@ -20,7 +20,7 @@ public class FirebaseAuthUtil {
         try {
             return FirebaseAuth.getInstance().verifyIdToken(idToken).getUid();
         } catch (FirebaseAuthException e) {
-            throw new NoSessionException();
+            throw new UnauthorizedException();
         }
     }
 

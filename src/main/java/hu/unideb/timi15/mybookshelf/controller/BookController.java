@@ -12,13 +12,13 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/mybookshelf/book")
+@RequestMapping("v1/mybookshelf/books")
 @RequiredArgsConstructor
 public class BookController {
 
     private final BookService bookService;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<BookResDto>> findAll(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(bookService.findAll(token));
     }

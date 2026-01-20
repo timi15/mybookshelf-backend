@@ -21,13 +21,13 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/mybookshelf/book-review")
+@RequestMapping("v1/mybookshelf/book-reviews")
 @RequiredArgsConstructor
 public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<ReviewResDto>> findAll(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(reviewService.findAll(token));
     }
@@ -40,7 +40,7 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.findByIsbn(token, isbn));
     }
 
-    @PostMapping("/save")
+    @PostMapping("")
     public ResponseEntity<ReviewResDto> save(
             @RequestHeader("Authorization") String token,
             @Valid @RequestBody CreateReviewReqDto dto
