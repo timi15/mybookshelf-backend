@@ -3,6 +3,7 @@ package hu.unideb.timi15.mybookshelf.advice;
 import hu.unideb.timi15.mybookshelf.exception.AlreadyExistException;
 import hu.unideb.timi15.mybookshelf.exception.AlreadyInListException;
 import hu.unideb.timi15.mybookshelf.exception.NotFoundException;
+import hu.unideb.timi15.mybookshelf.exception.UnauthorizedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -67,6 +68,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(409).body(Map.of(
                 "title", "date already in list",
                 "status", "409",
+                "message", ex.getMessage(),
+                "timestamp", System.currentTimeMillis()
+        ));
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<Map<String, Object>> handleUnauthorized(UnauthorizedException ex) {
+
+        return ResponseEntity.status(401).body(Map.of(
+                "title", "Unauthorized",
+                "status", "401",
                 "message", ex.getMessage(),
                 "timestamp", System.currentTimeMillis()
         ));
